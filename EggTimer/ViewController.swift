@@ -10,7 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var titleLabel: UILabel!
+    
     let eggTimes = ["Soft": 5, "Medium": 7, "Hard": 12]
+    
+    var remaining = 0
+    var timer = Timer()
     
 
     override func viewDidLoad() {
@@ -31,16 +36,19 @@ class ViewController: UIViewController {
     
     
     func countdown(_ seconds: Int) {
-        var remaining = seconds
+        timer.invalidate()
+
+        remaining = seconds
         print("\(remaining) seconds")
 
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            if 0 < remaining {
-                remaining -= 1
-                print("\(remaining) seconds")
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            if 0 < self.remaining {
+                self.remaining -= 1
+                print("\(self.remaining) seconds")
             }
             else {
                 timer.invalidate()
+                self.titleLabel.text = "Done!"
             }
         }
     }
