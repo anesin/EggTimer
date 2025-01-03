@@ -28,8 +28,8 @@ class ViewController: UIViewController {
     
 
     @IBAction func hardnessSelected(_ sender: UIButton) {
-        let hardness = sender.currentTitle
-        if let hard = hardness, let eggTime = eggTimes[hard] {
+        if let hardness = sender.currentTitle, let eggTime = eggTimes[hardness] {
+            titleLabel.text = hardness
             countdown(eggTime)
         }
         else {
@@ -40,7 +40,6 @@ class ViewController: UIViewController {
     
     func countdown(_ seconds: Int) {
         timer.invalidate()
-        titleLabel.text = "How do you like your eggs?"
         if seconds == 0 {
             print("seconds = \(seconds)")
         } 
