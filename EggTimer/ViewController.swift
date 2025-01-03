@@ -16,8 +16,9 @@ class ViewController: UIViewController {
     
     let eggTimes = ["Soft": 5, "Medium": 7, "Hard": 12]
     
-    var remaining = 0
     var timer = Timer()
+    var remaining = 0
+    var unit: Float = 0.0
     
 
     override func viewDidLoad() {
@@ -39,18 +40,22 @@ class ViewController: UIViewController {
     
     func countdown(_ seconds: Int) {
         timer.invalidate()
-
         titleLabel.text = "How do you like your eggs?"
-        progressBar.progress = 0
+        if seconds == 0 {
+            print("seconds = \(seconds)")
+        } 
+        
         remaining = seconds
+        progressBar.progress = 0
+        unit = 1/Float(seconds)
         print("\(remaining) seconds")
 
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             if self.progressBar.progress < 1 {
                 self.remaining -= 1
-                self.progressBar.progress += 1/Float(seconds)
+                self.progressBar.progress += self.unit
             }
-            else {
+            if self.remaining <= 0 {
                 self.remaining = 0
                 self.progressBar.progress = 1
                 timer.invalidate()
