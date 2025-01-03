@@ -22,12 +22,27 @@ class ViewController: UIViewController {
     @IBAction func hardnessSelected(_ sender: UIButton) {
         let hardness = sender.currentTitle
         if let hard = hardness, let eggTime = eggTimes[hard] {
-            print("\(eggTime)")
-        }
+            countdown(eggTime)
+        }
         else {
             print("Error")
         }
     }
     
-}
+    
+    func countdown(_ seconds: Int) {
+        var remaining = seconds
+        print("\(remaining) seconds")
 
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            if 0 < remaining {
+                remaining -= 1
+                print("\(remaining) seconds")
+            }
+            else {
+                timer.invalidate()
+            }
+        }
+    }
+    
+}
